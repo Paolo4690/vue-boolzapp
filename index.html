@@ -19,8 +19,8 @@
                 <!-- IL MIO USER  -->
                 <div class="row-my-user">
                     <div class="my-user">
-                        <img src="img/my_avatar.jpg" alt="">
-                        <span>Il mio nome</span>
+                        <img :src="'img/avatar' + user.avatar + '.jpg'" alt="">
+                        <span>{{ user.name }}</span>
                     </div>
                     <div class="icons">
                         <i class="fas fa-circle-notch"></i>
@@ -52,87 +52,12 @@
             <div class="aside-bottom">
 
                 <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user--active">
+                <div v-for="utente in contacts" :class="{'user--active': utente.active}" class="content-user">
                     <div class="user-pic">
-                        <img src="img/avatar_1.jpg" alt="">
+                        <img :src="'img/avatar' + utente.avatar + '.jpg'" :alt="'foto di' + utente.name">
                     </div>
                     <div class="info-message">
-                        <span>Michele</span>
-                        <span>Ultimo messaggio inviato</span>
-                    </div>
-                    <div class="hour">
-                        <span>12:00</span> 
-                    </div>
-                </div>
-                <!-- fine ITEMS PER V-FOR  -->
-
-                <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user">
-                    <div class="user-pic">
-                        <img src="img/avatar_2.jpg" alt="">
-                    </div>
-                    <div class="info-message">
-                        <span>Fabio</span>
-                        <span>Ultimo messaggio inviato</span>
-                    </div>
-                    <div class="hour">
-                        <span>12:00</span> 
-                    </div>
-                </div>
-                <!-- fine ITEMS PER V-FOR  -->
-
-                <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user">
-                    <div class="user-pic">
-                        <img src="img/avatar_3.jpg" alt="">
-                    </div>
-                    <div class="info-message">
-                        <span>Samuele</span>
-                        <span>Ultimo messaggio inviato</span>
-                    </div>
-                    <div class="hour">
-                        <span>12:00</span> 
-                    </div>
-                </div>
-                <!-- fine ITEMS PER V-FOR  -->
-
-                <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user">
-                    <div class="user-pic">
-                        <img src="img/avatar_4.jpg" alt="">
-                    </div>
-                    <div class="info-message">
-                        <span>Michele</span>
-                        <span>Ultimo messaggio inviato</span>
-                    </div>
-                    <div class="hour">
-                        <span>12:00</span> 
-                    </div>
-                </div>
-                <!-- fine ITEMS PER V-FOR  -->
-
-                <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user">
-                    <div class="user-pic">
-                        <img src="img/avatar_5.jpg" alt="">
-                    </div>
-                    <div class="info-message">
-                        <span>Michele</span>
-                        <span>Ultimo messaggio inviato</span>
-                    </div>
-                    <div class="hour">
-                        <span>12:00</span> 
-                    </div>
-                </div>
-                <!-- fine ITEMS PER V-FOR  -->
-
-                <!-- ITEMS PER V-FOR  -->
-                <div class="content-user content-user">
-                    <div class="user-pic">
-                        <img src="img/avatar_6.jpg" alt="">
-                    </div>
-                    <div class="info-message">
-                        <span>Michele</span>
+                        <span>{{ utente.name }}</span>
                         <span>Ultimo messaggio inviato</span>
                     </div>
                     <div class="hour">
@@ -302,6 +227,7 @@
         </main>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
