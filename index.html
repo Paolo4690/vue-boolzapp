@@ -53,16 +53,16 @@
             <div class="aside-bottom">
 
                 <!-- ITEMS PER V-FOR  -->
-                <div v-for="utente in contacts" :class="{'user--active': utente.active}" class="content-user">
+                <div @click="changeProfile(index)" v-for="(utente, index) in contacts" :class="index == counter ? 'user--active' : ''" class="content-user">
                     <div class="user-pic">
                         <img :src="'img/avatar' + utente.avatar + '.jpg'" :alt="'foto di' + utente.name">
                     </div>
                     <div class="info-message">
                         <span>{{ utente.name }}</span>
-                        <span>Ultimo messaggio inviato</span>
+                        <span>{{ utente.messages[utente.messages.length - 1].message }}</span>
                     </div>
                     <div class="hour">
-                        <span>12:00</span> 
+                        <span>{{ hour(index, utente.messages.length - 1) }}</span>  <!-- DA RISOLVERE -->
                     </div>
                 </div>
                 <!-- fine ITEMS PER V-FOR  -->
@@ -76,11 +76,11 @@
                 <!-- MAIN TOP USER  -->
                 <div class="content-user content-user">
                     <div class="user-pic">
-                        <img src="img/avatar_1.jpg" alt="">
+                        <img :src="'img/avatar' + contacts[counter].avatar +'.jpg'" alt="">
                     </div>
                     <div class="info-message">
-                        <span>Michele</span>
-                        <span>Ultimo accesso oggi alle 12:00</span>
+                        <span>{{ contacts[counter].name }}</span>
+                        <span>Ultimo accesso oggi alle {{ hour(counter, contacts[counter].messages.length - 1) }}</span>
                     </div>
                     <div class="icons">
                         <i class="fa fa-search"></i>
@@ -92,126 +92,15 @@
 
                 <!-- INIZIO CONVERSAZIONE -->
                 <div class="content-conversation">
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
+                    <!--  MESSAGGIO  -->
+                    <div v-for="(message, index) in contacts[counter].messages" class="row-message">
+                        <div :class="sentOr(counter, index)" class="cont-message">
+                            <p>{{ message.message }}</p>
+                            <div class="hour">{{ hour (counter, index) }}</div>
                         </div>
                     </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>asd</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>asd</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae, temporibus rerum ratione voluptatum eos beatae quos. Amet, aut inventore suscipit aliquam unde laudantium laborum tenetur voluptatibus est beatae reiciendis ipsam?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>asd</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A iure ipsa sapiente officia quidem nam mollitia sit quibusdam dignissimos labore rem, nesciunt ratione quia voluptatum itaque assumenda repellat minus aspernatur!</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>asd</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, accusamus natus! Maiores, praesentium. Modi harum error aperiam itaque reiciendis, corrupti quis facere consectetur voluptates eius nostrum nemo labore in saepe?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-                    <!-- MIO MESSAGGIO  -->
-                    <div class="row-message">
-                        <div class="cont-message my-message">
-                            <p>non riesco a capire come si fa a fare tutto questo, puoi spiegarmelo bene?</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MIO MESSAGGIO  -->
-
-                    <!--  MESSAGGIO INTERLOCUTORE -->
-                    <div class="row-message">
-                        <div class="cont-message your-message">
-                            <p>asd</p>
-                            <div class="hour">15:30</div>
-                        </div>
-                    </div>
-                    <!-- FINE MESSAGGIO INTERLOCUTORE -->
-
+                    <!-- FINE MESSAGGIO  -->
+                    
                 </div>
                 <!-- FINE CONVERSAZIONE -->    
 
