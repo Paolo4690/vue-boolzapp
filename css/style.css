@@ -69,7 +69,7 @@ main {
     font-weight: bold;
 }
 
-img {
+.my-user img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -118,6 +118,7 @@ img {
     padding: 5px;
     height: 45px;
     align-items: center;
+    background-color: #fafafa;
 }
 
 .icon-search {
@@ -143,4 +144,50 @@ img {
     border: 1px solid #d6d6d6; 
     border-left: 0;
     padding: 0 10px;
+}
+
+.aside-bottom {
+    background-color: #fff;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.aside-bottom .content-user {
+    padding: 5px;
+    display: flex;
+    border-bottom: 1px solid #e9e9e9;
+}
+.user-pic img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.aside-bottom .content-user--active {
+    background-color: #e9ebeb;
+}
+
+.aside-bottom .info-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex: 1 1 auto;
+}
+
+.info-message span:first-child {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.info-message span:last-child {
+    color: #bbb9c0;
+}
+
+.hour {
+    display: flex; 
+    justify-content: end;
+    color: #bbb9c0;
+    padding: 5px;
+    font-size: 11px;
 }
