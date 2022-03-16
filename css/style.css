@@ -18,12 +18,6 @@
     --back-img: url(../img/mine.jpg);
 }
 
-body {
-    scrollbar-arrow-color : var(--color-icon);
-    scrollbar-base-color : var(--backColChiaro);
-    scrollbar-track-color : var(--backColChiaro);
-}
-
 #app-whats {
     display: flex;
     height: 100vh;
@@ -198,10 +192,26 @@ input {
     height: 100%;
     background-color: var(--backColChiaro);
     overflow-y: scroll;
+    scrollbar-color: var(--color-icon) var(--backHoverUser);
+}
+
+.aside-bottom::-webkit-scrollbar {
+    background-color: var(--backHoverUser);
+    width: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.aside-bottom::-webkit-scrollbar-thumb {
+    background: var(--color-icon);
+    border-radius: 10px;  
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 .aside-bottom .content-user {
     display: flex;
+    position: relative;
     cursor: pointer;
     padding: 5px;
     border-bottom: 1px solid var(--border-color);
@@ -248,6 +258,8 @@ input {
 }
 .aside-bottom .hour span {
     position: absolute;
+    top: 8px;
+    right: 15px;
 }
 /*  FINE ASIDE BOTTOM  *//*  FINE ASIDE BOTTOM  *//*  FINE ASIDE BOTTOM  */
 
@@ -285,6 +297,21 @@ main .content-conversation {
     padding: 2rem 2rem 0;
     background-image: var(--back-img);
     overflow-y: scroll;
+    scrollbar-color: var(--color-icon) var(--backHoverUser);
+}
+
+main .content-conversation::-webkit-scrollbar {
+    background-color: var(--backHoverUser);
+    width: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+main .content-conversation::-webkit-scrollbar-thumb {
+    background: var(--color-icon);
+    border-radius: 10px;  
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 .content-conversation .cont-message {
