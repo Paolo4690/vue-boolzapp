@@ -39,7 +39,7 @@ const app = new Vue({
             {
                 name: 'Fabio',
                 avatar: '_2',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-01-10T09:25:03',
@@ -66,7 +66,7 @@ const app = new Vue({
             {
                 name: 'Samuele',
                 avatar: '_3',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-01-10T11:02:55',
@@ -113,7 +113,7 @@ const app = new Vue({
             {
                 name: 'Alessandro B.',
                 avatar: '_4',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-02-05T15:30:55',
@@ -135,7 +135,7 @@ const app = new Vue({
             {
                 name: 'Alessandro U.',
                 avatar: '_5',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-03-10T15:30:55',
@@ -157,7 +157,7 @@ const app = new Vue({
             {
                 name: 'claudia',
                 avatar: '_6',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-02-14T15:30:55',
@@ -179,7 +179,7 @@ const app = new Vue({
             {
                 name: 'Federico',
                 avatar: '_7',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-02-18T15:30:55',
@@ -201,7 +201,7 @@ const app = new Vue({
             {
                 name: 'Davide',
                 avatar: '_8',
-                visible: false,
+                visible: true,
                 messages: [
                     {
                         date: '2022-03-15T08:30:55',
@@ -265,7 +265,7 @@ const app = new Vue({
             this.newMessage.message = ''
             this.newMessage.status = ''
         },
-        search() { // RICERCA SOLUZIONE 1// RICERCA SOLUZIONE 1// RICERCA SOLUZIONE 1// RICERCA SOLUZIONE 1// RICERCA SOLUZIONE 1
+        search() {
             this.contacts.forEach(search => {
                 if (search.name.toLowerCase().includes(this.cerca.toLowerCase())) {
                     search.visible = true

@@ -45,7 +45,7 @@
                     <div class="icon-search">
                         <label for="search"><i class="fa fa-search"></i></label>
                     </div>
-                     <input v-model="cerca" placeholder="Cerca o inizia una nuova chat" type="text" name="search" id="search">
+                     <input @keyup="search" v-model="cerca" placeholder="Cerca o inizia una nuova chat" type="text" name="search" id="search">
                 </div>
                 <!-- FINE INPUT SEARCH  -->
             </div>
@@ -54,7 +54,7 @@
             <div class="aside-bottom">
 
                 <!-- ITEMS PER V-FOR  -->
-                <div @click="changeProfile(index)" v-for="(utente, index) in contacts" :class="index == counter ? 'user--active' : ''" class="content-user">
+                <div @click="changeProfile(index)" v-for="(utente, index) in contacts" v-show="utente.visible" :class="index == counter ? 'user--active' : ''" class="content-user">
                     <div class="user-pic">
                         <img :src="'img/avatar' + utente.avatar + '.jpg'" :alt="'foto di' + utente.name">
                     </div>
