@@ -244,11 +244,23 @@ const app = new Vue({
                 }
             }
         },
-        sendNewMessage(i){
+        sendNewMessage(){
             this.ora = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
             this.newMessage.date = this.ora
             this.newMessage.status = 'sent'
-            this.contacts[i].messages.push({...this.newMessage})
+            this.contacts[this.counter].messages.push({...this.newMessage})
+            this.newMessage.date = ''
+            this.newMessage.message = ''
+            this.newMessage.status = ''
+            setTimeout(this.received, 1000)
+        },
+        received() {
+        
+            this.ora = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
+            this.newMessage.date = this.ora
+            this.newMessage.message = 'Ok!'
+            this.newMessage.status = 'received'
+            this.contacts[this.counter].messages.push({...this.newMessage})
             this.newMessage.date = ''
             this.newMessage.message = ''
             this.newMessage.status = ''
