@@ -9,6 +9,7 @@ const app = new Vue({
         cerca: '',
         ora: '',
         idMessage: '',
+        attesaRisposta: false,
         newMessage: {
             date: '',
             message: '',
@@ -284,6 +285,10 @@ const app = new Vue({
                 ],
             },
         ],
+        messageRandom : [
+            'Ok, va bene!',
+            'Scusa inizio il corso'
+        ]
     },
     methods:{
         sentOr(i, j) {
@@ -317,11 +322,12 @@ const app = new Vue({
                 this.newMessage.date = ''
                 this.newMessage.message = ''
                 this.newMessage.status = ''
-                setTimeout(this.received, 1000)
+                setTimeout(this.received, 2000)
+                this.attesaRisposta = true
             }
         },
         received() {
-        
+            this.attesaRisposta = false
             this.ora = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
             this.newMessage.date = this.ora
             this.newMessage.message = 'Ok!'
