@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/icon.gif" type="image/x-icon">
     <title>Boolzapp</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,7 +45,7 @@
                     <div class="icon-search">
                         <label for="search"><i class="fa fa-search"></i></label>
                     </div>
-                    <input placeholder="Cerca o inizia una nuova chat" type="text" name="search" id="search">
+                     <input v-model="cerca" placeholder="Cerca o inizia una nuova chat" type="text" name="search" id="search">
                 </div>
                 <!-- FINE INPUT SEARCH  -->
             </div>
@@ -62,10 +63,10 @@
                         <span>{{ utente.messages[utente.messages.length - 1].message }}</span>
                     </div>
                     <div class="hour">
-                        <span>{{ hour(index, utente.messages.length - 1) }}</span>  <!-- DA RISOLVERE -->
+                        <span>{{ utente.messages[utente.messages.length - 1].date }}</span>  <!-- DA RISOLVERE -->
                     </div>
                 </div>
-                <!-- fine ITEMS PER V-FOR  -->
+                <!-- FINE ITEMS PER V-FOR  -->
                 
             </div>
             <!-- FINE ASIDE BOTTOM  -->
@@ -80,7 +81,7 @@
                     </div>
                     <div class="info-message">
                         <span>{{ contacts[counter].name }}</span>
-                        <span>Ultimo accesso oggi alle {{ hour(counter, contacts[counter].messages.length - 1) }}</span>
+                        <span>Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
                     </div>
                     <div class="icons">
                         <i class="fa fa-search"></i>
@@ -95,8 +96,15 @@
                     <!--  MESSAGGIO  -->
                     <div v-for="(message, index) in contacts[counter].messages" class="row-message">
                         <div :class="sentOr(counter, index)" class="cont-message">
+                            <div class="arrow">
+                                <i class="fas fa-angle-down"></i>
+                                <div class="ele-list">
+                                    <div class="list">Info messaggi</div>
+                                    <div @click="deleteMessage(counter, index)" class="list">Cancella messaggi</div>
+                                </div>
+                            </div>
                             <p>{{ message.message }}</p>
-                            <div class="hour">{{ hour (counter, index) }}</div>
+                            <div class="hour">{{ message.date }}</div>
                         </div>
                     </div>
                     <!-- FINE MESSAGGIO  -->
@@ -107,7 +115,7 @@
                 <!-- INIZIO INPUT TEXT -->
                 <div class="content-input-conv">
                     <i class="far fa-smile"></i>
-                    <input placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
+                    <input @keyup.enter="sendNewMessage(counter)" v-model.trim="newMessage.message" placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
                     <i class="fas fa-microphone"></i>
 
                 </div>
@@ -117,6 +125,7 @@
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="js/script.js"></script>
 </body>

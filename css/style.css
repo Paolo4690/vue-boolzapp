@@ -14,7 +14,7 @@ body {
         #d2dbdc 15%,
         #d2dbdc 100%
     );
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
 }
 
@@ -24,7 +24,7 @@ body {
     width: 80%;
     height: 95vh;
     margin: 2.5vh auto;
-    min-width: 700px;
+    min-width: 900px;
 }
 
 aside {
@@ -75,6 +75,7 @@ i {
 .my-user span {
     margin-left: .5rem;
     font-weight: bold;
+    font-size: 1rem;
 }
 
 .my-user img {
@@ -199,6 +200,7 @@ i {
 
 .info-message span:last-child {
     color: #bbb9c0;
+    margin-top: 3px;
 }
 
 .aside-bottom .hour {
@@ -207,6 +209,9 @@ i {
     padding: 5px;
     color: #bbb9c0;
     font-size: 11px;
+}
+.aside-bottom .hour span {
+    position: absolute;
 }
 /*  FINE ASIDE BOTTOM  *//*  FINE ASIDE BOTTOM  *//*  FINE ASIDE BOTTOM  */
 
@@ -250,11 +255,54 @@ main .content-conversation {
 .content-conversation .cont-message {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    position: relative;
+    min-width: 190px;
     max-width: 340px;
     padding: 10px 0 0 13px;
     border-radius: 7px;
     margin-bottom: .8rem;
+}
+
+.arrow {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 8px;
+    height: 100%;
+    font-size: 1.1rem;
+    opacity: 0;
+    color: #818181;
+}
+
+.cont-message:hover .arrow {
+    opacity: 1;
+}
+
+.ele-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: -10px;
+    width: 150px;
+    padding: 10px 0;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    box-shadow: 0 0 15px 5px #77777770;
+    z-index: 999;
+    text-align: center;
+    font-size: 12px;
+}
+.block {
+    display: block;
+}
+
+.ele-list .list {
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.ele-list .list:hover {
+    background-color:#dadada;
 }
 
 .my-message {
@@ -282,7 +330,7 @@ main .content-conversation {
 }
 
 .cont-message p {
-    padding-right: 10px;
+    padding-right: 25px;
 }
 /* FINE MAIN CENTER *//* FINE MAIN CENTER *//* FINE MAIN CENTER */
 
