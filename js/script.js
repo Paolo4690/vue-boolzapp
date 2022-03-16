@@ -288,7 +288,8 @@ const app = new Vue({
         messageRandom : [
             'Ok, va bene!',
             'Scusa inizio il corso'
-        ]
+        ],
+        dark: false,
     },
     methods:{
         sentOr(i, j) {
