@@ -279,7 +279,6 @@ main .content-conversation {
 }
 
 .ele-list {
-    display: none;
     position: absolute;
     top: 100%;
     right: -10px;
@@ -291,9 +290,6 @@ main .content-conversation {
     z-index: 999;
     text-align: center;
     font-size: 12px;
-}
-.block {
-    display: block;
 }
 
 .ele-list .list {

@@ -54,7 +54,7 @@
             <div class="aside-bottom">
 
                 <!-- ITEMS PER V-FOR  -->
-                <div @click="changeProfile(index)" v-for="(utente, index) in contacts" v-show="utente.visible" :class="index == counter ? 'user--active' : ''" class="content-user">
+                <div @click="changeProfile(index)" v-for="(utente, index) in contacts"  v-show="utente.visible" :class="index == counter ? 'user--active' : ''" class="content-user">
                     <div class="user-pic">
                         <img :src="'img/avatar' + utente.avatar + '.jpg'" :alt="'foto di' + utente.name">
                     </div>
@@ -94,15 +94,17 @@
                 <!-- INIZIO CONVERSAZIONE -->
                 <div class="content-conversation">
                     <!--  MESSAGGIO  -->
-                    <div v-for="(message, index) in contacts[counter].messages" class="row-message">
+                    <div v-for="(message, index) in contacts[counter].messages" :key="message.idMessage" class="row-message">
                         <div :class="sentOr(counter, index)" class="cont-message">
-                            <div class="arrow">
+
+                            <div @click="message.visibleDelete = !message.visibleDelete" class="arrow">
                                 <i class="fas fa-angle-down"></i>
-                                <div class="ele-list">
+                                <div v-show="message.visibleDelete" class="ele-list">
                                     <div class="list">Info messaggi</div>
                                     <div @click="deleteMessage(counter, index)" class="list">Cancella messaggi</div>
                                 </div>
                             </div>
+
                             <p>{{ message.message }}</p>
                             <div class="hour">{{ message.date }}</div>
                         </div>
