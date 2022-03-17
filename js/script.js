@@ -287,7 +287,14 @@ const app = new Vue({
         ],
         messageRandom : [
             'Ok, va bene!',
-            'Scusa inizio il corso'
+            'Scusa inizio il corso, ci sentiamo dopo!',
+            'Chiamami, ci capiamo meglio!',
+            'Mi dispiace, ho da fare! ci aggiorniamo…',
+            'Ci penso io, non ti preoccupare!',
+            'Guarda non so che dirti!',
+            'Forse hai sbagliato chat!',
+            'Vue js è stupendo!',
+            'Vienimi a prendere!',
         ],
         dark: false,
     },
@@ -323,7 +330,7 @@ const app = new Vue({
                 this.newMessage.date = ''
                 this.newMessage.message = ''
                 this.newMessage.status = ''
-                setTimeout(this.received, 2000)
+                setTimeout(this.received, 1500)
                 this.attesaRisposta = true
             }
         },
@@ -331,7 +338,7 @@ const app = new Vue({
             this.attesaRisposta = false
             this.ora = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
             this.newMessage.date = this.ora
-            this.newMessage.message = 'Ok!'
+            this.newMessage.message = this.messageRandom[this.getRandomInteger(0, this.messageRandom.length - 1)]
             this.newMessage.status = 'received'
             this.newMessage.idMessage++
             this.contacts[this.counter].messages.push({...this.newMessage})
@@ -355,7 +362,10 @@ const app = new Vue({
                     this.contacts[i].messages[j].idMessage = this.idMessage
                 }
             }   
-        }
+        },
+        getRandomInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) ) + min;
+        },
     },
     created() {
         this.convertData()
