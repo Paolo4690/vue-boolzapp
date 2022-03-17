@@ -360,12 +360,12 @@ main .content-conversation::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
 }
 
-.my-message {
+.sent {
     background-color: #d5f9ba;
     float: right;
 }
 
-.your-message {
+.received {
     background-color: #fff;
     float: left;
 }

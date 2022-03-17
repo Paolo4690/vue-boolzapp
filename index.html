@@ -83,9 +83,9 @@
                         </div>
                         <div class="info-message">
                             <span>{{ contacts[counter].name }}</span>
-                            <span v-if="newMessage.message != ''">Online</span>  
+                            <span v-if="boolOnline">Online</span>  
                             <span v-else-if="attesaRisposta">Sta scrivendo...</span>  
-                            <span v-else="newMessage.message == ''">Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
+                            <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
                         </div>        
                         
                         <div @click="dark = !dark" class="cont-active-dark">
@@ -106,7 +106,7 @@
                     <div class="content-conversation">
                         <!--  MESSAGGIO  -->
                         <div v-for="(message, index) in contacts[counter].messages" :key="message.idMessage" class="row-message">
-                            <div :class="sentOr(counter, index)" class="cont-message">
+                            <div :class="message.sent ? 'sent' : 'received'" class="cont-message">
 
                                 <div @click="message.visibleDelete = !message.visibleDelete" class="arrow">
                                     <i class="fas fa-angle-down"></i>
@@ -128,9 +128,9 @@
                     <!-- INIZIO INPUT TEXT -->
                     <div class="content-input-conv">
                         <i class="far fa-smile"></i>
-                        <input @keyup.enter="sendNewMessage(counter)" v-model.trim="newMessage.message" placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
-                        <i v-if="newMessage.message == ''" class="fas fa-microphone"></i>
-                        <i @click="sendNewMessage(counter)" v-else class="fa-solid fa-location-arrow"></i>
+                        <input @keyup.enter="sendNewMessage()" v-model.trim="contacts[counter].newMessage.message" placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
+                        <i v-if="contacts[counter].newMessage.message == ''" class="fas fa-microphone"></i>
+                        <i @click="sendNewMessage()" v-else class="fa-solid fa-location-arrow"></i>
                     </div>
                 
                     <!-- FINE INPUT TEXT -->
