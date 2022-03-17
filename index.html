@@ -56,16 +56,16 @@
                 <div class="aside-bottom">
 
                     <!-- ITEMS PER V-FOR  -->
-                    <div @click="changeProfile(index)" v-for="(utente, index) in contacts"  v-show="utente.visible" :class="index == counter ? 'user--active' : ''" class="content-user">
+                    <div @click="changeProfile(index), goChat = 0" v-for="(utente, index) in contacts"  v-show="utente.visible" :class="index == counter ? 'user--active' : ''" class="content-user">
                         <div class="user-pic">
                             <img :src="'img/avatar' + utente.avatar + '.jpg'" :alt="'foto di' + utente.name">
                         </div>
                         <div class="info-message">
                             <span>{{ utente.name }}</span>
-                            <span>{{ utente.messages[utente.messages.length - 1].message }}</span>
+                            <span v-if="utente.messages.length > 0">{{ utente.messages[utente.messages.length - 1].message }}</span>
                         </div>
                         <div class="hour">
-                            <span>{{ utente.messages[utente.messages.length - 1].date }}</span>  
+                            <span v-if="utente.messages.length > 0">{{ utente.messages[utente.messages.length - 1].date }}</span>  
                         </div>
                     </div>
                     <!-- FINE ITEMS PER V-FOR  -->
@@ -75,65 +75,81 @@
             </aside>
             <!-- FINE ASIDE -->
 
-                <main>
-                    <!-- MAIN TOP USER  -->
-                    <div class="content-user content-user">
-                        <div class="user-pic">
-                            <img :src="'img/avatar' + contacts[counter].avatar +'.jpg'" alt="">
-                        </div>
-                        <div class="info-message">
-                            <span>{{ contacts[counter].name }}</span>
-                            <span v-if="boolOnline">Online</span>  
-                            <span v-else-if="attesaRisposta">Sta scrivendo...</span>  
-                            <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
-                        </div>        
-                        
-                        <div @click="dark = !dark" class="cont-active-dark">
-                            <i class="fa-solid fa-sun"></i>
-                            <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
-                            <i class="fa-solid fa-moon"></i>
-                        </div>
+            <div v-if="goChat == null" class="goApp">
+                <div class="content-user">
+                    <div @click="dark = !dark" class="cont-active-dark">
+                        <i class="fa-solid fa-sun"></i>
+                        <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+                <div class="content-empty"></div>
+            </div>
 
-                        <div class="icons">
-                            <i class="fa fa-search"></i>
-                            <i class="fas fa-paperclip"></i>
-                            <i class="fas fa-ellipsis-v"></i>
+            <main v-else>
+                <!-- MAIN TOP USER  -->
+                <div class="content-user">
+                    <div class="user-pic">
+                        <img :src="'img/avatar' + contacts[counter].avatar +'.jpg'" alt="">
+                    </div>
+                    <div class="info-message">
+                        <span>{{ contacts[counter].name }}</span>
+                        <span v-if="boolOnline">Online</span>  
+                        <span v-else-if="attesaRisposta">Sta scrivendo...</span>  
+                        <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
+                    </div>        
+                    
+                    <div @click="dark = !dark" class="cont-active-dark">
+                        <i class="fa-solid fa-sun"></i>
+                        <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+
+                    <div class="icons">
+                        <i class="fa fa-search"></i>
+                        <i class="fas fa-paperclip"></i>
+                        <i @click="menuDelete = !menuDelete" class="fas fa-ellipsis-v"></i>
+                        <div v-show="menuDelete" @mouseover="menuDelete = true" @mouseout="menuDelete = false" class="ele-list">
+                            <div @click="deleteChat(counter)" class="list">Elimina messaggi</div>
+                            <div @click="deleteUser(counter)" class="list">Elimina Chat</div>
                         </div>
                     </div>
-                    <!-- FINE MAIN TOP USER  -->
+                </div>
+                <!-- FINE MAIN TOP USER  -->
 
-                    <!-- INIZIO CONVERSAZIONE -->
-                    <div class="content-conversation">
-                        <!--  MESSAGGIO  -->
-                        <div v-for="(message, index) in contacts[counter].messages" :key="message.idMessage" class="row-message">
-                            <div :class="message.sent ? 'sent' : 'received'" class="cont-message">
-
-                                <div @click="message.visibleDelete = !message.visibleDelete" class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                    <div v-show="message.visibleDelete" class="ele-list">
-                                        <div class="list">Info messaggi</div>
-                                        <div @click="deleteMessage(counter, index)" class="list">Cancella messaggi</div>
-                                    </div>
-                                </div>
-
-                                <p>{{ message.message }}</p>
-                                <div class="hour">{{ message.date }}</div>
-                            </div>
-                        </div>
-                        <!-- FINE MESSAGGIO  -->
-                        
-                    </div>
-                    <!-- FINE CONVERSAZIONE -->    
-
-                    <!-- INIZIO INPUT TEXT -->
-                    <div class="content-input-conv">
-                        <i class="far fa-smile"></i>
-                        <input @keyup.enter="sendNewMessage()" v-model.trim="contacts[counter].newMessage.message" placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
-                        <i v-if="contacts[counter].newMessage.message == ''" class="fas fa-microphone"></i>
-                        <i @click="sendNewMessage()" v-else class="fa-solid fa-location-arrow"></i>
-                    </div>
+                <!-- INIZIO CONVERSAZIONE -->
                 
-                    <!-- FINE INPUT TEXT -->
+                <div class="content-conversation">
+                    <!--  MESSAGGIO  -->
+                    <div v-for="(message, index) in contacts[counter].messages" :key="message.idMessage" class="row-message">
+                        <div :class="message.sent ? 'sent' : 'received'" class="cont-message">
+
+                            <div @click="message.visibleDelete = !message.visibleDelete" class="arrow">
+                                <i class="fas fa-angle-down"></i>
+                                <div v-show="message.visibleDelete" @mouseover="message.visibleDelete = true" @mouseout="message.visibleDelete = false" class="ele-list">
+                                    <div class="list">Info messaggi</div>
+                                    <div @click="deleteMessage(counter, index)" class="list">Cancella messaggi</div>
+                                </div>
+                            </div>
+
+                            <p>{{ message.message }}</p>
+                            <div class="hour">{{ message.date }}</div>
+                        </div>
+                    </div>
+                    <!-- FINE MESSAGGIO  -->
+                    
+                </div>
+                <!-- FINE CONVERSAZIONE -->    
+
+                <!-- INIZIO INPUT TEXT -->
+                <div class="content-input-conv">
+                    <i class="far fa-smile"></i>
+                    <input @keyup.enter="sendNewMessage()" v-model.trim="contacts[counter].newMessage.message" placeholder="Scrivi un messaggio" type="text" name="new-message" id="new-message">
+                    <i v-if="contacts[counter].newMessage.message == ''" class="fas fa-microphone"></i>
+                    <i @click="sendNewMessage()" v-else class="fa-solid fa-location-arrow"></i>
+                </div>
+            
+                <!-- FINE INPUT TEXT -->
 
             </main>
         </div>

@@ -6,11 +6,13 @@ const app = new Vue({
             avatar: '_my'
         },
         dark: false,
+        goChat: null,
         counter: 0,
         cerca: '',
         idMessage: 0,
         boolOnline: false,
         attesaRisposta: false,
+        menuDelete: false,
         contacts: [
             {
                 name: 'Michele',
@@ -335,29 +337,31 @@ const app = new Vue({
                 this.contacts[this.counter].newMessage.sent = ''
 
                 this.attesaRisposta = true
-                setTimeout(this.received, 1500)
+                this.received(this.counter)
             }
             
         },
 
-        received() {
-            this.attesaRisposta = false
-            this.contacts[this.counter].newMessage.date = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
-            this.contacts[this.counter].newMessage.message = this.messageRandom[this.getRandomInteger(0, this.messageRandom.length - 1)]
-            this.contacts[this.counter].newMessage.message.sent = false
-            this.contacts[this.counter].newMessage.idMessage++
-            this.contacts[this.counter].messages.push({...this.contacts[this.counter].newMessage})
-            this.contacts[this.counter].newMessage.message = ''
-            this.contacts[this.counter].newMessage.sent = ''
-
-            this.boolOnline = true
-            this.online()
+        received(i) {
+            setTimeout(() => {
+                this.attesaRisposta = false
+                this.contacts[i].newMessage.date = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
+                this.contacts[i].newMessage.message = this.messageRandom[this.getRandomInteger(0, this.messageRandom.length - 1)]
+                this.contacts[i].newMessage.message.sent = false
+                this.contacts[i].newMessage.idMessage++
+                this.contacts[i].messages.push({...this.contacts[i].newMessage})
+                this.contacts[i].newMessage.message = ''
+                this.contacts[i].newMessage.sent = ''
+    
+                this.boolOnline = true
+                this.online()
+            }, 1500);
         },
 
         online() {
             setTimeout(() => {
                 this.boolOnline = false
-            }, 1500);
+            }, 2000);
         },
 
         search() {
@@ -391,6 +395,16 @@ const app = new Vue({
                 }
             }           
         },
+
+        deleteChat(i) {
+            this.contacts[i].messages.splice(0, this.contacts[i].messages.length -1)
+
+        },
+
+        deleteUser(i) {
+            this.contacts.splice(i, 1)
+            this.menuDelete = false
+        }
     },
     created() {
         this.convertData()
