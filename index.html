@@ -62,7 +62,7 @@
                         </div>
                         <div class="info-message">
                             <span>{{ utente.name }}</span>
-                            <span v-if="utente.messages.length > 0">{{ utente.messages[utente.messages.length - 1].message }}</span>
+                            <span class="mess" v-if="utente.messages.length > 0">{{ utente.messages[utente.messages.length - 1].message }}</span>
                         </div>
                         <div class="hour">
                             <span v-if="utente.messages.length > 0">{{ utente.messages[utente.messages.length - 1].date }}</span>  
@@ -96,7 +96,7 @@
                         <span>{{ contacts[counter].name }}</span>
                         <span v-if="boolOnline">Online</span>  
                         <span v-else-if="attesaRisposta">Sta scrivendo...</span>  
-                        <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].messages[contacts[counter].messages.length - 1].date }}</span>
+                        <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].lastMessage }}</span>
                     </div>        
                     
                     <div @click="dark = !dark" class="cont-active-dark">
@@ -121,7 +121,7 @@
                 
                 <div class="content-conversation">
                     <!--  MESSAGGIO  -->
-                    <div v-for="(message, index) in contacts[counter].messages" :key="message.idMessage" class="row-message">
+                    <div v-for="(message, index) in contacts[counter].messages"  v-if="contacts[counter].messages.length > 0" :key="message.idMessage" class="row-message">
                         <div :class="message.sent ? 'sent' : 'received'" class="cont-message">
 
                             <div @click="message.visibleDelete = !message.visibleDelete" class="arrow">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
 
-                            <p>{{ message.message }}</p>
+                            <p :class="contacts[counter].messages[index].message == 'Messaggio eliminato' ? 'delete-mess' : ''">{{ message.message }}</p>
                             <div class="hour">{{ message.date }}</div>
                         </div>
                     </div>

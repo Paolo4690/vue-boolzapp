@@ -17,6 +17,8 @@
     --text-color: #000;
     --back-img: url(../img/mine.jpg);
     --goApp: url(../img/go-app.jpg);
+    --sent-message: #d5f9ba;
+    --received-message: #fff;
 }
 
 #app-whats {
@@ -37,6 +39,8 @@
     --text-color: #fff;
     --back-img: url(../img/mine-dark.jpg);
     --goApp: url(../img/go-app-dark.jpg);
+    --sent-message: #365e55;
+    --received-message: #43484d;
 }
 
 /* STUTTURA  *//* STUTTURA  *//* STUTTURA  *//* STUTTURA  */
@@ -244,7 +248,7 @@ input {
     font-size: 1rem;
 }
 
-.info-message span:last-child {
+.info-message span.mess {
     color: var(--spancolor);
     margin-top: 3px;
 }
@@ -383,13 +387,17 @@ main .content-conversation::-webkit-scrollbar-thumb {
 }
 
 .sent {
-    background-color: #d5f9ba;
+    background-color: var(--sent-message);
     float: right;
 }
 
 .received {
-    background-color: #fff;
+    background-color: var(--received-message);
     float: left;
+}
+
+.cont-message p.delete-mess {
+    opacity: .4;
 }
 
 .row-message::after {
@@ -408,7 +416,7 @@ main .content-conversation::-webkit-scrollbar-thumb {
 
 .cont-message p {
     padding-right: 25px;
-    color: #000;
+    color: var(--text-color);
 }
 /* FINE MAIN CENTER *//* FINE MAIN CENTER *//* FINE MAIN CENTER */
 

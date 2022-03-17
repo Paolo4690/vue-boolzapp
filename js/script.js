@@ -18,6 +18,7 @@ const app = new Vue({
                 name: 'Michele',
                 avatar: '_1',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -50,6 +51,7 @@ const app = new Vue({
                 name: 'Fabio',
                 avatar: '_2',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -88,6 +90,7 @@ const app = new Vue({
                 name: 'Samuele',
                 avatar: '_3',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -150,6 +153,7 @@ const app = new Vue({
                 name: 'Alessandro B.',
                 avatar: '_4',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -182,6 +186,7 @@ const app = new Vue({
                 name: 'Alessandro U.',
                 avatar: '_5',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -214,6 +219,7 @@ const app = new Vue({
                 name: 'Claudia',
                 avatar: '_6',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -246,6 +252,7 @@ const app = new Vue({
                 name: 'Federico',
                 avatar: '_7',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -278,6 +285,7 @@ const app = new Vue({
                 name: 'Davide',
                 avatar: '_8',
                 visible: true,
+                lastMessage: 'gg/dd/yyyy',
                 newMessage: {
                         date: '',
                         message: '',
@@ -320,11 +328,13 @@ const app = new Vue({
         ],
     },
     methods:{
-        changeProfile(index) {
-            this.counter = index
+        changeProfile(i) {
+            this.counter = i
+            this.contacts[i].lastMessage =  this.contacts[i].messages[this.contacts[i].messages.length - 1].date
         },
+
         deleteMessage(i, j) {
-            this.contacts[i].messages.splice(j, 1)
+            this.contacts[i].messages[j].message = 'Messaggio eliminato'   
         },
 
         sendNewMessage(i){
@@ -346,13 +356,15 @@ const app = new Vue({
             setTimeout(() => {
                 this.attesaRisposta = false
                 this.contacts[i].newMessage.date = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
+                this.contacts[i].lastSeen = this.contacts[i].newMessage.date
                 this.contacts[i].newMessage.message = this.messageRandom[this.getRandomInteger(0, this.messageRandom.length - 1)]
                 this.contacts[i].newMessage.message.sent = false
                 this.contacts[i].newMessage.idMessage++
                 this.contacts[i].messages.push({...this.contacts[i].newMessage})
                 this.contacts[i].newMessage.message = ''
                 this.contacts[i].newMessage.sent = ''
-    
+                this.contacts[i].lastMessage =  this.contacts[i].messages[this.contacts[i].messages.length - 1].date
+
                 this.boolOnline = true
                 this.online()
             }, 1500);
@@ -397,8 +409,7 @@ const app = new Vue({
         },
 
         deleteChat(i) {
-            this.contacts[i].messages.splice(0, this.contacts[i].messages.length -1)
-
+            this.contacts[i].messages.splice(0, this.contacts[i].messages.length)
         },
 
         deleteUser(i) {
