@@ -13,10 +13,11 @@ const app = new Vue({
         boolOnline: false,
         attesaRisposta: false,
         menuDelete: false,
+        menuNewUser: false,
         contacts: [
             {
                 name: 'Michele',
-                avatar: '_1',
+                avatar: 'avatar_1',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -49,7 +50,7 @@ const app = new Vue({
             },
             {
                 name: 'Fabio',
-                avatar: '_2',
+                avatar: 'avatar_2',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -88,7 +89,7 @@ const app = new Vue({
             },
             {
                 name: 'Samuele',
-                avatar: '_3',
+                avatar: 'avatar_3',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -151,7 +152,7 @@ const app = new Vue({
             },
             {
                 name: 'Alessandro B.',
-                avatar: '_4',
+                avatar: 'avatar_4',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -184,7 +185,7 @@ const app = new Vue({
             },
             {
                 name: 'Alessandro U.',
-                avatar: '_5',
+                avatar: 'avatar_5',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -217,7 +218,7 @@ const app = new Vue({
             },
             {
                 name: 'Claudia',
-                avatar: '_6',
+                avatar: 'avatar_6',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -250,7 +251,7 @@ const app = new Vue({
             },
             {
                 name: 'Federico',
-                avatar: '_7',
+                avatar: 'avatar_7',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -283,7 +284,7 @@ const app = new Vue({
             },
             {
                 name: 'Davide',
-                avatar: '_8',
+                avatar: 'avatar_8',
                 visible: true,
                 lastMessage: 'gg/dd/yyyy',
                 newMessage: {
@@ -326,8 +327,41 @@ const app = new Vue({
             'Vue js è stupendo!',
             'Vienimi a prendere!',
         ],
+        newUser: 
+        {
+            name: '',
+            avatar: '',
+            visible: true,
+            lastMessage: 'gg/dd/yyyy',
+            newMessage: {
+                date: '',
+                message: '',
+                sent: true,
+                visibleDelete: false,
+                idMessage: 100
+            },
+        messages: [],
+        }
     },
     methods:{
+        addNewUser() {
+            if (this.newUser.name != '' &&this.newUser.newMessage.message != ''){
+                this.newUser.avatar = this.getRandomInteger(1, 4)
+                this.newUser.newMessage.date = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
+                this.newUser.lastMessage = this.newUser.newMessage.date
+                this.newUser.newMessage.idMessage += 10
+                this.newUser.messages.push({...this.newUser.newMessage})
+                this.contacts.push({...this.newUser})
+                this.newUser.name = ''
+                this.newUser.avatar = ''
+                this.newUser.lastMessage = ''
+                this.newUser.newMessage.message = ''
+                this.menuNewUser = false
+
+                this.received(this.counter)
+            }
+        },
+
         changeProfile(i) {
             this.counter = i
             this.contacts[i].lastMessage =  this.contacts[i].messages[this.contacts[i].messages.length - 1].date
@@ -349,7 +383,6 @@ const app = new Vue({
                 this.attesaRisposta = true
                 this.received(this.counter)
             }
-            
         },
 
         received(i) {
@@ -415,10 +448,12 @@ const app = new Vue({
         deleteUser(i) {
             this.contacts.splice(i, 1)
             this.menuDelete = false
-        }
+        },
+
     },
     created() {
         this.convertData()
         this.getId()
-    }
+    },
+
 })
