@@ -373,6 +373,25 @@ const app = new Vue({
             setTimeout(() => {
                 this.scrollToEnd()
             }, 1);
+
+            this.goChat = 0
+
+            this.asideToMain()
+
+        },
+
+        asideToMain() {
+
+            const eleAside = document.querySelector('.aside')
+            const eleMain = document.querySelector('main')
+            eleMain.classList.toggle('none')
+            eleAside.classList.toggle('none')
+        },
+
+        isMobile() {
+            if(window.innerWidth < 670) {
+                this.goChat = 0
+            }
         },
 
         deleteMessage(i, j) {
@@ -423,7 +442,6 @@ const app = new Vue({
                 } else {
                     this.audioPlay(audio2)
                 }
-
 
                 setTimeout(() => {
                     this.scrollToEnd()
@@ -489,6 +507,7 @@ const app = new Vue({
     created() {
         this.convertData()
         this.getId()
+        this.isMobile()
     },
 
 })

@@ -26,7 +26,7 @@
         <div class="container">
             <!-- INIZIO LATO SINISTRO -->
 
-            <aside>
+            <aside class="aside">
                 <!-- ASIDE TOP  -->
                 <div class="aside-top">
                     <!-- IL MIO USER  -->
@@ -35,6 +35,14 @@
                             <img :src="'img/' + user.avatar + '.jpg'" alt="">
                             <span>{{ user.name }}</span>
                         </div>
+
+                        <div @click="dark = !dark" class="cont-active-dark">
+                            <i class="fa-solid fa-sun"></i>
+                            <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+
+
                         <div class="icons">
                             <i class="fas fa-circle-notch"></i>
                             <i class="fas fa-comment-alt"></i>
@@ -46,7 +54,7 @@
                                     <input @keydown.enter="addNewUser" v-model="newUser.name" id="nome-contatto" type="text">
                                 </div>
                                 <div class="menu-add-items">
-                                    <label for="messaggio-contatto">Scrivi il messaggio da inviare contatto</label>
+                                    <label for="messaggio-contatto">Scrivi il messaggio da inviare</label>
                                     <input v-model="newUser.newMessage.message" id="messaggio-contatto" type="text">
                                 </div>
                                 <div class="menu-add-items">
@@ -102,19 +110,18 @@
             <!-- FINE ASIDE -->
 
             <div v-if="goChat == null" class="goApp">
-                <div class="content-user">
-                    <div @click="dark = !dark" class="cont-active-dark">
-                        <i class="fa-solid fa-sun"></i>
-                        <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
-                        <i class="fa-solid fa-moon"></i>
-                    </div>
-                </div>
+                <div class="content-user"></div>
                 <div class="content-empty"></div>
             </div>
 
-            <main v-else>
+            <main class="none" v-else>
                 <!-- MAIN TOP USER  -->
-                <div class="content-user">
+                <div @click="asideToMain" class="content-user">
+
+                    <div class="to-aside">
+                        <i class="fa-solid fa-circle-arrow-left"></i>
+                    </div>
+
                     <div class="user-pic">
                         <img :src="'img/' + contacts[counter].avatar +'.jpg'" alt="">
                     </div>
@@ -125,11 +132,7 @@
                         <span v-else="boolOnline == false">Ultimo accesso oggi alle {{ contacts[counter].lastMessage }}</span>
                     </div>        
                     
-                    <div @click="dark = !dark" class="cont-active-dark">
-                        <i class="fa-solid fa-sun"></i>
-                        <div class="active-dark"><div :class="{'circle--active': dark}" class="circle"></div></div>
-                        <i class="fa-solid fa-moon"></i>
-                    </div>
+
 
                     <div class="icons">
                         <i class="fa fa-search"></i>

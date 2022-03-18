@@ -23,7 +23,7 @@
 
 #app-whats {
     display: flex;
-    height: 100vh;
+    height: 100%;
     background-image: var(--body-image);
     font-family: 'Lato', sans-serif;
     font-size: 13px;
@@ -49,21 +49,22 @@
     width: 80%;
     height: 95vh;
     margin: 2.5vh auto;
-    min-width: 900px;
+    min-width: 670px;
     color: var(--text-color);
 }
 
 aside {
     display: flex;
     flex-direction: column;
-    flex-basis: 35%;
+    min-width: 320px;
     border-right: 1px solid var(--border-color);
 }
 
 main {
     display: flex;
     flex-direction: column;
-    flex-basis: 65%;
+    min-width: 350px;
+    width: 65%;
 }
 /* FINE STUTTURA  *//* FINE STUTTURA  *//* FINE STUTTURA  */
 
@@ -329,8 +330,16 @@ main .info-message span:last-child {
 main .content-user,
 .goApp .content-user {
     display: flex;
+    align-items: center;
     height: 60px;
     background-color: var(--backCol-cont-user);
+}
+
+main .to-aside{
+    display: none;
+    font-size: 2rem;
+    padding: 0 5px;
+    color: #365e55;
 }
 
 main .user-pic img{
@@ -494,9 +503,11 @@ main .content-input-conv {
 /* DARK MODE  *//* DARK MODE  *//* DARK MODE  *//* DARK MODE  */
 .cont-active-dark {
     display: flex;
+    flex: 0 1 auto;
     align-items: center;
+    justify-content: end;
     margin: auto;
-    width: 120px;
+    width: 90px;
     height: 25px;
 }
 
@@ -600,4 +611,38 @@ main .content-input-conv {
     90% {
         transform: rotate(0deg);
     }
+}
+
+@media screen and (max-width: 670px) {
+    
+    .container {
+        display: block;
+        width: 100%;
+        margin: 0;
+        height: 100%;
+        min-width: 0;
+    }
+
+    aside {
+        height: 100vh;
+    }
+
+    .aside.none,
+    main.none {
+        display: none;
+    }
+
+    .goApp{
+        display: none;
+    }
+
+    main {
+        width: 100%;
+        height: 100vh;
+    }
+
+    main .to-aside{
+        display: block;
+    }
+    
 }
