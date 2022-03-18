@@ -365,6 +365,9 @@ const app = new Vue({
         changeProfile(i) {
             this.counter = i
             this.contacts[i].lastMessage =  this.contacts[i].messages[this.contacts[i].messages.length - 1].date
+            setTimeout(() => {
+                this.scrollToEnd()
+            }, 1);
         },
 
         deleteMessage(i, j) {
@@ -379,6 +382,10 @@ const app = new Vue({
                 this.contacts[this.counter].messages.push({...this.contacts[this.counter].newMessage})
                 this.contacts[this.counter].newMessage.message = ''
                 this.contacts[this.counter].newMessage.sent = ''
+
+                setTimeout(() => {
+                    this.scrollToEnd()
+                }, 1);
 
                 this.attesaRisposta = true
                 this.received(this.counter)
@@ -400,6 +407,11 @@ const app = new Vue({
 
                 this.boolOnline = true
                 this.online()
+
+                setTimeout(() => {
+                    this.scrollToEnd()
+                }, 1);
+
             }, 1500);
         },
 
@@ -449,6 +461,12 @@ const app = new Vue({
             this.contacts.splice(i, 1)
             this.menuDelete = false
         },
+
+        scrollToEnd() {
+            let container = document.querySelector('.content-conversation')
+            let scrollHeight = container.scrollHeight + 1
+            container.scrollTop = scrollHeight
+        }
 
     },
     created() {
