@@ -15,13 +15,12 @@
 <body>
     <div id="app-whats" :class="{'dark': dark}">
 
-        <div class="intro">
-            <div>
+        <!-- <div class="intro"><div>
                 
                 <img class="turn" src="img/spin.png" alt="">
                 <h1>Attendere<br>Caricamento in corso...</h1>
             </div>
-        </div>
+        </div> -->
 
         <div class="container">
             <!-- INIZIO LATO SINISTRO -->
@@ -114,11 +113,11 @@
                 <div class="content-empty"></div>
             </div>
 
-            <main class="none" v-else>
+            <main class="main" v-else>
                 <!-- MAIN TOP USER  -->
-                <div @click="asideToMain" class="content-user">
+                <div class="content-user">
 
-                    <div class="to-aside">
+                    <div @click="asideToMain" class="to-aside">
                         <i class="fa-solid fa-circle-arrow-left"></i>
                     </div>
 

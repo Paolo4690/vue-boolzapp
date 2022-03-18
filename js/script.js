@@ -381,12 +381,16 @@ const app = new Vue({
         },
 
         asideToMain() {
+        // const eleIntro = document.querySelector('.intro')
+        const eleAside = document.querySelector('.aside')
+        const eleMain = document.querySelector('.main')
 
-            const eleAside = document.querySelector('.aside')
-            const eleMain = document.querySelector('main')
-            eleMain.classList.toggle('none')
-            eleAside.classList.toggle('none')
+        // eleIntro.classList.add('none')
+        eleAside.classList.toggle('aside-open')
+        eleMain.classList.toggle('main-open')
         },
+        
+
 
         isMobile() {
             if(window.innerWidth < 670) {
@@ -494,7 +498,8 @@ const app = new Vue({
 
         deleteUser(i) {
             this.contacts.splice(i, 1)
-            this.menuDelete = false
+            this.menuDelete = falsea
+            this.asideToMain()
         },
 
         scrollToEnd() {
