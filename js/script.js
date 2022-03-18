@@ -1,3 +1,6 @@
+const audio1 = new Audio('../audio/1.mp3')
+const audio2 = new Audio('../audio/2.mp3')
+
 const app = new Vue({
     el: '#app-whats',
     data:{
@@ -5,6 +8,8 @@ const app = new Vue({
             name: 'Paolo C.',
             avatar: '_my'
         },
+        audio1sent: false,
+        audio2sent: false,
         dark: false,
         goChat: null,
         counter: 0,
@@ -374,6 +379,10 @@ const app = new Vue({
             this.contacts[i].messages[j].message = 'Messaggio eliminato'   
         },
 
+        audioPlay(nAudio) {
+            nAudio.play()
+        },
+
         sendNewMessage(i){
             if(this.contacts[this.counter].newMessage.message != '') {
                 this.contacts[this.counter].newMessage.date = luxon.DateTime.now().toFormat('dd/MM/yyyy HH:mm:ss')
@@ -382,6 +391,7 @@ const app = new Vue({
                 this.contacts[this.counter].messages.push({...this.contacts[this.counter].newMessage})
                 this.contacts[this.counter].newMessage.message = ''
                 this.contacts[this.counter].newMessage.sent = ''
+
 
                 setTimeout(() => {
                     this.scrollToEnd()
@@ -407,6 +417,13 @@ const app = new Vue({
 
                 this.boolOnline = true
                 this.online()
+
+                if(i == this.counter) {
+                    this.audioPlay(audio1)
+                } else {
+                    this.audioPlay(audio2)
+                }
+
 
                 setTimeout(() => {
                     this.scrollToEnd()
