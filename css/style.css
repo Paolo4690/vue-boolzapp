@@ -498,7 +498,6 @@ main .content-input-conv {
 /* FINE MAIN  *//* FINE MAIN  *//* FINE MAIN  *//* FINE MAIN  */
 
 
-
 /* DARK MODE  *//* DARK MODE  *//* DARK MODE  *//* DARK MODE  */
 .cont-active-dark {
     display: flex;
@@ -539,8 +538,6 @@ main .content-input-conv {
 .circle--active {
     left: calc(100% - 22px);
 }
-
-
 
 .intro {
     position: absolute;
@@ -620,14 +617,13 @@ main .content-input-conv {
         height: 100%;
         width: 100%;    
         min-width: 320px;
-
     }
-    
-    .none {
+
+    .intro {
         display: none;
     }
 
-    aside {
+    .aside-open {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -636,12 +632,12 @@ main .content-input-conv {
         transition: all .7s;
     }
 
-    .aside-open {
+    .aside-close {
         left: -100%;
         right: 100%;
     }
     
-    main {
+    .main-close {
         overflow: hidden;
         position: absolute;
         top: 0;

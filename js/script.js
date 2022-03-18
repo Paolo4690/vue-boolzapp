@@ -1,5 +1,5 @@
-const audio1 = new Audio('../audio/1.mp3')
-const audio2 = new Audio('../audio/2.mp3')
+const audio1 = new Audio('https://www.belugabeachclub.it/audioprova/1.mp3')
+const audio2 = new Audio('https://www.belugabeachclub.it/audioprova/2.mp3')
 
 const app = new Vue({
     el: '#app-whats',
@@ -381,17 +381,13 @@ const app = new Vue({
         },
 
         asideToMain() {
-        // const eleIntro = document.querySelector('.intro')
-        const eleAside = document.querySelector('.aside')
-        const eleMain = document.querySelector('.main')
+        const eleAside = document.querySelector('.aside-open')
+        const eleMain = document.querySelector('.main-close')
 
-        // eleIntro.classList.add('none')
-        eleAside.classList.toggle('aside-open')
+        eleAside.classList.toggle('aside-close')
         eleMain.classList.toggle('main-open')
         },
         
-
-
         isMobile() {
             if(window.innerWidth < 670) {
                 this.goChat = 0
@@ -498,7 +494,7 @@ const app = new Vue({
 
         deleteUser(i) {
             this.contacts.splice(i, 1)
-            this.menuDelete = falsea
+            this.menuDelete = false
             this.asideToMain()
         },
 
