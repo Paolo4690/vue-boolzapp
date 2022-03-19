@@ -8,8 +8,6 @@ const app = new Vue({
             name: 'Paolo C.',
             avatar: '_my'
         },
-        audio1sent: false,
-        audio2sent: false,
         dark: false,
         goChat: null,
         counter: 0,
@@ -381,11 +379,14 @@ const app = new Vue({
         },
 
         asideToMain() {
-        const eleAside = document.querySelector('.aside-open')
-        const eleMain = document.querySelector('.main-close')
+            if (window.innerWidth < 670) {
+                const eleAside = document.querySelector('.aside-open')
+                const eleMain = document.querySelector('.main-close')
+        
+                eleAside.classList.toggle('aside-close')
+                eleMain.classList.toggle('main-open')
+            }
 
-        eleAside.classList.toggle('aside-close')
-        eleMain.classList.toggle('main-open')
         },
         
         isMobile() {
@@ -495,7 +496,9 @@ const app = new Vue({
         deleteUser(i) {
             this.contacts.splice(i, 1)
             this.menuDelete = false
-            this.asideToMain()
+            if(window.innerWidth < 670) {
+                this.asideToMain()
+            }
         },
 
         scrollToEnd() {
